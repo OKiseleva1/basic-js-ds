@@ -1,19 +1,24 @@
-const { assert } = require('chai');
-const { testOptional } = require('../extensions/index.js');
-const { Stack } = require('../src/stack.js');
+const { NotImplementedError } = require('../extensions/index.js');
 
-it.optional = testOptional;
 
-Object.freeze(assert);
+class Stack {
+  constructor() {
+    this.stack = [];
+  }
 
-describe('Stack', () => {
-  it.optional('should create a Stack with the methods', () => {
-    const stack = new Stack();
-    stack.push(5);
-    stack.push(6);
-    stack.push(7);
-    assert.strictEqual(stack.peek(), 7);
-    assert.strictEqual(stack.pop(), 7);
-    assert.strictEqual(stack.peek(), 6);
-  });
-});
+  push(element) {
+    this.stack.push(element);
+  }
+
+  pop() {
+    return this.stack.sort((a, b) => a - b).pop();
+  }
+
+  peek() {
+    return this.stack[this.stack.length - 1];
+  }
+}
+
+module.exports = {
+  Stack,
+};
